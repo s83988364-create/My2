@@ -758,7 +758,7 @@ async def add_sticker_command(client, message: Message):
     )
 
 #=============== ADD SUDO ================
-@app.on_message(filters.command("addsudo", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("add", prefixes=[".", "/"]) & filters.group)
 async def add_sudo_command(client, message: Message):
 
     if message.from_user.id != OWNER_ID:
