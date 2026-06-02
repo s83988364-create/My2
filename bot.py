@@ -13,12 +13,13 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 #=============== CONFIG ================
 API_ID = 39035274
 API_HASH = "6a0b24e16c4bea2bbc975b7dbb0c1e64"
-BOT_TOKEN = "8931408596:AAHpQAeA0iLWLQjrltfJ1RZYfrh5HNrSbGQ"
+BOT_TOKEN = "8931408596:AAH-7SkyKtohZqKPE8ixyEfCV04h_rXagc8"
 OWNER_ID = 8722144519
 BOT_USERNAME = "ll_SUPRRME_XD_ll_BOT"
 
-#=============== CUSTOM LINES ================
+#=============== CUSTOM LINES (EMPTY - ADD YOUR OWN) ================
 CUSTOM_LINES = [
+    # Add your custom lines here
 
     "🔥 teri mummy ki chut!",
     "⚡ bahen k lode teri dadi ki black hairy pussy",
@@ -134,6 +135,7 @@ CUSTOM_LINES = [
     "𝑻𝑬𝑹𝑬 𝑫𝑨𝑫𝑨 𝑲𝑨 𝑶𝑵𝑳𝒀𝑭𝑨𝑵𝑺 𝑳𝑰𝑽𝑬 𝑲𝑨𝑹 𝑫𝑼𝑵𝑮𝑨",
     "𝑻𝑬𝑹𝑬 𝑫𝑨𝑫𝑨 𝑲𝑶 𝒁𝑰𝑷 𝑭𝑰𝑳𝑬 𝑴𝑬 𝑪𝑶𝑴𝑷𝑹𝑬𝑺𝑺 𝑲𝑨𝑹 𝑫𝑼𝑵𝑮𝑨",
     "𝑻𝑬𝑹𝑬 𝑫𝑨𝑫𝑨 𝑲𝑬 𝑩𝑯𝑶𝑺𝑫𝑬 𝑴𝑬 𝑷𝒀𝑻𝑯𝑶𝑵 𝑹𝑼𝑵 𝑲𝑨𝑹 𝑫𝑼𝑵𝑮𝑨",
+
 ]
 
 # =============== DUMMY SERVER FOR RENDER ================
@@ -170,44 +172,15 @@ muted_users = set()
 spam_active = False
 spam_target = None
 spam_count = 0
-sticker_spam_active = False
 custom_stickers = []
 
 # Variables for custom lines spam
 custom_spam_active = False
 custom_spam_task = None
 
-#=============== SHAYARI STORAGE ================
-shayari_data = {
-    "love": [],
-    "sad": [],
-    "birthday": [],
-    "general": []
-}
-
-#=============== DEFAULT SHAYARI ================
-default_shayari = {
-    "love": [
-        "❤️ प्यार में यूं मिलते हैं दिल,\nजैसे सागर में मिलती है नदी।\nतुमसे मिलकर लगता है,\nये दुनिया है सबसे हसीन! 💕",
-        "💝 तेरी एक मुस्कान,\nबदल देती है मेरी पहचान।\nतू है तो मैं हूं,\nतू नहीं तो कुछ नहीं! 🌹"
-    ],
-    "sad": [
-        "🥀 टूटे दिल का दर्द,\nसमझता है कोई और।\nहंसते हुए चेहरे के पीछे,\nदेखता है कोई और! 😢",
-        "💔 अकेले बैठे हैं हम,\nतेरी यादों के सहारे।\nतू नहीं तो क्या हुआ,\nहै तेरी तस्वीर हमारे पास! 🥺"
-    ],
-    "birthday": [
-        "🎂 जन्मदिन मुबारक हो आपको,\nहर खुशी हो आपके संग।\nखुशियां हों आपके पास इतनी,\nजितने आसमान में हैं बादल! 🎉",
-        "🎈 हर पल खुशियों से भरा हो,\nहर दिन नया उजियारा हो।\nआपका जीवन फूलों जैसा महके,\nहर सपना हकीकत में ढले! 🌟"
-    ],
-    "general": [
-        "💫 जिंदगी एक सफर है,\nअलग-अलग रंग लिए।\nकभी हंसी तो कभी आंसू,\nकभी प्यार तो कभी गम लिए! 🌈",
-        "🌙 तन्हाई में अक्सर मिलता है सुकून,\nहवाओं में बसती हैं कहानियां।\nहर दर्द कहता है एक किस्सा,\nहर खुशी में छिपी होती है जवानियां! ⭐"
-    ]
-}
-
 #=============== LOAD DATA ================
 def load_data():
-    global sudo_users, custom_stickers, shayari_data
+    global sudo_users, custom_stickers
 
     try:
         if os.path.exists("sudo_users.json"):
@@ -217,10 +190,6 @@ def load_data():
         if os.path.exists("custom_stickers.json"):
             with open("custom_stickers.json", "r") as f:
                 custom_stickers = json.load(f)
-
-        if os.path.exists("shayari_data.json"):
-            with open("shayari_data.json", "r") as f:
-                shayari_data = json.load(f)
 
     except Exception as e:
         print(f"Error loading data: {e}")
@@ -232,17 +201,6 @@ def save_data():
 
     with open("custom_stickers.json", "w") as f:
         json.dump(custom_stickers, f)
-
-    with open("shayari_data.json", "w") as f:
-        json.dump(shayari_data, f)
-
-#=============== INIT SHAYARI ================
-def init_shayari():
-    for category in default_shayari:
-        if not shayari_data.get(category):
-            shayari_data[category] = default_shayari[category]
-
-    save_data()
 
 #=============== BUTTONS ================
 def get_main_keyboard():
@@ -266,42 +224,45 @@ async def custom_spam_loop(client, chat_id, target_user_id, count):
         if not custom_spam_active:
             break
         
-        line = random.choice(CUSTOM_LINES)
+        if CUSTOM_LINES:
+            line = random.choice(CUSTOM_LINES)
+        else:
+            line = "Spam message!"
         
         try:
             await client.send_message(chat_id, f"{mention} {line}")
-            await asyncio.sleep(0.3)  # Delay to avoid flood
+            await asyncio.sleep(0.15)  # FASTER - 0.15 seconds delay
         except Exception as e:
             print(f"Custom spam error: {e}")
             break
 
 #=============== CUSTOM LINES SPAM COMMAND ================
-@app.on_message(filters.command("r", prefixes=["."]) & filters.group)
+@app.on_message(filters.command("r", prefixes="!") & filters.group)
 async def custom_r_command(client, message: Message):
     global custom_spam_active, custom_spam_task
     
     # Check sudo permission
     if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
+        await message.reply_text("❌ GAND MARA BSKD BADA AAYA SUDO USE KARNE WALA!")
         return
     
     # Check if replied to a user
     if not message.reply_to_message:
-        await message.reply_text("❌ Please reply to a user and use: .r <count>")
+        await message.reply_text("❌ KISI KO REPLY KARO OR USE KARO: !r <count>")
         return
     
     # Parse command
     parts = message.text.split()
     
     if len(parts) != 2:
-        await message.reply_text("❌ Usage: .r <count>\nExample: .r 10")
+        await message.reply_text("❌ Usage: !r <count>\nExample: !r 10")
         return
     
     try:
         count = int(parts[1])
         
-        if count > 200:
-            await message.reply_text("❌ Max limit is 200!")
+        if count > 500:  # INCREASED LIMIT
+            await message.reply_text("❌ Max limit is 500!")
             return
         
         if count < 1:
@@ -320,7 +281,7 @@ async def custom_r_command(client, message: Message):
         custom_spam_active = False
         if custom_spam_task:
             custom_spam_task.cancel()
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.3)
     
     # Start new spam
     custom_spam_active = True
@@ -331,7 +292,7 @@ async def custom_r_command(client, message: Message):
         f"🎯 Target: {target_user.first_name}\n"
         f"🔢 Count: {count}\n"
         f"📝 Using {len(CUSTOM_LINES)} custom lines\n"
-        f"⚡ Use .stopr to stop!"
+        f"⚡ Use !stopr to stop!"
     )
     
     # Run spam in background
@@ -350,12 +311,12 @@ async def custom_r_command(client, message: Message):
         custom_spam_active = False
 
 #=============== STOP CUSTOM SPAM ================
-@app.on_message(filters.command("stopr", prefixes=["."]) & filters.group)
+@app.on_message(filters.command("stopr", prefixes="!") & filters.group)
 async def stop_custom_spam(client, message: Message):
     global custom_spam_active, custom_spam_task
     
     if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
+        await message.reply_text("❌ USE KARNE KE BARE ME SOCHNA BHI MAT WARNA GAND MAR LUNGA!")
         return
     
     if custom_spam_active:
@@ -388,33 +349,21 @@ async def button_callback(client, callback_query):
 🤖 BOT COMMANDS 🤖
 
 📊 Utility:
-• .alive - Check bot status
-• .ping - Check bot speed
-• .speed - Bot response time
-
-💬 Shayari:
-• .love - Love shayari
-• .sad - Sad shayari
-• .shayari - General shayari
-• .birthday - Birthday wishes
-• .addshayari - Add shayari
+• !alive - Check bot status
+• !ping - Check bot speed
+• !speed - Bot response time
 
 ⚡ Sudo Commands:
-• .mute - Mute user globally
-• .unmute - Unmute user
-• .sticker - Sticker spam
-• .stopraid - Stop sticker spam
-• .spam - Spam user with custom message
-• .stopspam - Stop custom spam
-• .r <count> - Send random custom lines to replied user
-• .stopr - Stop custom lines spam
+• !spam - Spam user with custom message
+• !stopspam - Stop custom spam
+• !r <count> - Send random custom lines to replied user
+• !stopr - Stop custom lines spam
+• !add - Add sudo user
+• !remove - Remove sudo user
 
 👑 Owner Only:
-• .addsticker - Add sticker
-• .addsudo - Add sudo user
-• .removesudo - Remove sudo user
-• .sudolist - List sudo users
-• .mutelist - List muted users
+• !removesudo - Remove sudo user
+• !sudolist - List sudo users
 
 💫 Custom Lines Active: {len(CUSTOM_LINES)} lines
 """
@@ -437,7 +386,6 @@ async def button_callback(client, callback_query):
             f"🏠 My Home\n\n"
             f"📊 Bot Stats:\n"
             f"• Sudo Users: {len(sudo_users)}\n"
-            f"• Muted Users: {len(muted_users)}\n"
             f"• Stickers: {len(custom_stickers)}\n"
             f"• Custom Lines: {len(CUSTOM_LINES)}\n"
             f"• Status: Active 🟢\n\n"
@@ -449,13 +397,13 @@ async def button_callback(client, callback_query):
 
     await callback_query.answer()
 
-#=============== UTILITY COMMANDS ================
-@app.on_message(filters.command("alive", prefixes=[".", "/"]) & filters.group)
+#=============== UTILITY COMMANDS (FASTER) ================
+@app.on_message(filters.command("alive", prefixes="!") & filters.group)
 async def alive_command(client, message: Message):
     await message.reply_text("✅ Bot is Online! 🚀")
 
 
-@app.on_message(filters.command("ping", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("ping", prefixes="!") & filters.group)
 async def ping_command(client, message: Message):
     start = time.time()
     msg = await message.reply_text("🏓 Pinging...")
@@ -466,7 +414,7 @@ async def ping_command(client, message: Message):
     await msg.edit_text(f"🏓 Pong!\n⏱️ {ping_time}ms")
 
 
-@app.on_message(filters.command("speed", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("speed", prefixes="!") & filters.group)
 async def speed_command(client, message: Message):
     start = time.time()
     msg = await message.reply_text("⚡ Checking speed...")
@@ -482,219 +430,29 @@ async def speed_command(client, message: Message):
 def is_sudo(user_id):
     return user_id in sudo_users
 
-#=============== MUTE COMMAND ================
-@app.on_message(filters.command("mute", prefixes=[".", "/"]) & filters.group)
-async def mute_command(client, message: Message):
-
-    if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
-        return
-
-    if not message.reply_to_message:
-        await message.reply_text("❌ Please reply to a user to mute them!")
-        return
-
-    target_user = message.reply_to_message.from_user
-    mention = target_user.mention
-
-    muted_users.add(target_user.id)
-    save_data()
-
-    await message.reply_text(f"✅ {mention} has been muted!")
-
-#=============== UNMUTE COMMAND ================
-@app.on_message(filters.command("unmute", prefixes=[".", "/"]) & filters.group)
-async def unmute_command(client, message: Message):
-
-    if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
-        return
-
-    if not message.reply_to_message:
-        await message.reply_text("❌ Please reply to a user to unmute them!")
-        return
-
-    target_user = message.reply_to_message.from_user
-    mention = target_user.mention
-
-    if target_user.id in muted_users:
-        muted_users.remove(target_user.id)
-        save_data()
-
-        await message.reply_text(f"✅ {mention} has been unmuted!")
-
-    else:
-        await message.reply_text(f"❌ {target_user.first_name} is not muted!")
-
-#=============== MUTELIST COMMAND ================
-@app.on_message(filters.command("mutelist", prefixes=[".", "/"]) & filters.group)
-async def mutelist_command(client, message: Message):
-
-    if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
-        return
-
-    if not muted_users:
-        await message.reply_text("📝 No users are muted currently!")
-        return
-
-    muted_list = "🔇 Muted Users List\n\n"
-
-    for user_id in muted_users:
-        try:
-            user = await client.get_users(user_id)
-            muted_list += f"• {user.first_name} ({user_id})\n"
-
-        except:
-            muted_list += f"• Unknown User ({user_id})\n"
-
-    await message.reply_text(muted_list)
-
-#=============== STICKER SPAM ================
-@app.on_message(filters.command("sticker", prefixes=[".", "/"]) & filters.group)
-async def sticker_spam_command(client, message: Message):
-
-    if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
-        return
-
-    global sticker_spam_active
-
-    parts = message.text.split()
-
-    if len(parts) != 2:
-        await message.reply_text("❌ Usage: .sticker <count>\nExample: .sticker 50")
-        return
-
-    try:
-        count = int(parts[1])
-
-        if count > 100:
-            await message.reply_text("❌ Max limit is 100!")
-            return
-
-    except:
-        await message.reply_text("❌ Please provide a valid number!")
-        return
-
-    if not custom_stickers:
-        await message.reply_text("❌ No stickers added yet!\nUse .addsticker to add stickers.")
-        return
-
-    sticker_spam_active = True
-
-    for i in range(count):
-        if not sticker_spam_active:
-            break
-
-        sticker = random.choice(custom_stickers)
-
-        await message.reply_sticker(sticker)
-
-        await asyncio.sleep(0.1)
-
-    sticker_spam_active = False
-
-#=============== STOP RAID ================
-@app.on_message(filters.command("stopraid", prefixes=[".", "/"]) & filters.group)
-async def stop_raid_command(client, message: Message):
-
-    if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
-        return
-
-    global sticker_spam_active
-
-    sticker_spam_active = False
-
-    await message.reply_text("🛑 Sticker raid stopped!")
-
-#=============== SHAYARI COMMANDS ================
-@app.on_message(filters.command("love"))
-async def love_command(client, message: Message):
-
-    if shayari_data["love"]:
-        shayari = random.choice(shayari_data["love"])
-
-        await message.reply_text(f"💕 Love Shayari 💕\n\n{shayari}")
-
-
-@app.on_message(filters.command("sad"))
-async def sad_command(client, message: Message):
-
-    if shayari_data["sad"]:
-        shayari = random.choice(shayari_data["sad"])
-
-        await message.reply_text(f"🥀 Sad Shayari 🥀\n\n{shayari}")
-
-
-@app.on_message(filters.command("shayari"))
-async def general_shayari_command(client, message: Message):
-
-    if shayari_data["general"]:
-        shayari = random.choice(shayari_data["general"])
-
-        await message.reply_text(f"✨ Shayari ✨\n\n{shayari}")
-
-
-@app.on_message(filters.command("birthday"))
-async def birthday_command(client, message: Message):
-
-    if shayari_data["birthday"]:
-        shayari = random.choice(shayari_data["birthday"])
-
-        await message.reply_text(f"🎂 Birthday Shayari 🎂\n\n{shayari}")
-
-#=============== ADD SHAYARI ================
-@app.on_message(filters.command("addshayari"))
-async def add_shayari_command(client, message: Message):
-
-    if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can add shayari!")
-        return
-
-    parts = message.text.split(" ", 2)
-
-    if len(parts) < 3:
-        await message.reply_text("❌ Usage: .addshayari <love/sad/birthday/general> <shayari>")
-        return
-
-    category = parts[1].lower()
-    shayari_text = parts[2]
-
-    if category in shayari_data:
-        shayari_data[category].append(shayari_text)
-
-        save_data()
-
-        await message.reply_text(f"✅ Shayari added to {category} category!")
-
-    else:
-        await message.reply_text("❌ Category must be: love, sad, birthday, or general")
-
-#=============== SPAM COMMAND ================
-@app.on_message(filters.command("spam", prefixes=[".", "/"]) & filters.group)
+#=============== SPAM COMMAND (FASTER) ================
+@app.on_message(filters.command("spam", prefixes="!") & filters.group)
 async def spam_command(client, message: Message):
 
     if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
+        await message.reply_text("❌ PEHELE SUPREME KO PAPA BOL!")
         return
 
     if not message.reply_to_message:
-        await message.reply_text("❌ Reply to a user and use: .spam <count> <message>")
+        await message.reply_text("❌ Reply to a user and use: !spam <count> <message>")
         return
 
     parts = message.text.split(" ", 2)
 
     if len(parts) < 3:
-        await message.reply_text("❌ Usage: .spam <count> <message>")
+        await message.reply_text("❌ Usage: !spam <count> <message>")
         return
 
     try:
         count = int(parts[1])
 
-        if count > 100:
-            await message.reply_text("❌ Max limit is 100!")
+        if count > 500:  # INCREASED LIMIT
+            await message.reply_text("❌ Max limit is 500!")
             return
 
     except:
@@ -715,18 +473,18 @@ async def spam_command(client, message: Message):
 
         await message.reply_text(f"{mention} {custom_text}")
 
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.1)  # FASTER
 
     spam_active = False
 
     await message.reply_text(f"✅ Spam completed: {count} times!")
 
 #=============== STOP SPAM ================
-@app.on_message(filters.command("stopspam", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("stopspam", prefixes="!") & filters.group)
 async def stop_spam_command(client, message: Message):
 
     if not is_sudo(message.from_user.id):
-        await message.reply_text("❌ Only sudo users can use this command!")
+        await message.reply_text("❌ SUPREME PAPA SE SUDO LEKE AA!")
         return
 
     global spam_active
@@ -735,30 +493,8 @@ async def stop_spam_command(client, message: Message):
 
     await message.reply_text("🛑 Spam stopped!")
 
-#=============== ADD STICKER ================
-@app.on_message(filters.command("addsticker", prefixes=[".", "/"]) & filters.group)
-async def add_sticker_command(client, message: Message):
-
-    if message.from_user.id != OWNER_ID:
-        await message.reply_text("❌ Only owner can use this command!")
-        return
-
-    if not message.reply_to_message or not message.reply_to_message.sticker:
-        await message.reply_text("❌ Please reply to a sticker to add it!")
-        return
-
-    sticker_id = message.reply_to_message.sticker.file_id
-
-    custom_stickers.append(sticker_id)
-
-    save_data()
-
-    await message.reply_text(
-        f"✅ Sticker added!\nTotal stickers: {len(custom_stickers)}"
-    )
-
 #=============== ADD SUDO ================
-@app.on_message(filters.command("add", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("add", prefixes="!") & filters.group)
 async def add_sudo_command(client, message: Message):
 
     if message.from_user.id != OWNER_ID:
@@ -791,7 +527,7 @@ async def add_sudo_command(client, message: Message):
         await message.reply_text("❌ Reply to a user or provide user ID!")
 
 #=============== REMOVE SUDO ================
-@app.on_message(filters.command("removesudo", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("remove", prefixes="!") & filters.group)
 async def remove_sudo_command(client, message: Message):
 
     if message.from_user.id != OWNER_ID:
@@ -828,7 +564,7 @@ async def remove_sudo_command(client, message: Message):
         )
 
 #=============== SUDO LIST ================
-@app.on_message(filters.command("sudolist", prefixes=[".", "/"]) & filters.group)
+@app.on_message(filters.command("sudolist", prefixes="!") & filters.group)
 async def sudo_list_command(client, message: Message):
 
     if not is_sudo(message.from_user.id):
@@ -900,7 +636,6 @@ async def message_handler(client, message: Message):
 def main():
 
     load_data()
-    init_shayari()
 
     if OWNER_ID not in sudo_users:
         sudo_users.add(OWNER_ID)
@@ -912,6 +647,7 @@ def main():
     print(f"👑 Owner ID: {OWNER_ID}")
     print(f"📊 Sudo Users: {len(sudo_users)}")
     print(f"💫 Custom Lines Loaded: {len(CUSTOM_LINES)}")
+    print("⚡ Bot is 5X FASTER now!")
 
     app.run()
 
