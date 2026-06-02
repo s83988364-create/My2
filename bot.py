@@ -135,6 +135,8 @@ CUSTOM_LINES = [
     "𝑻𝑬𝑹𝑬 𝑫𝑨𝑫𝑨 𝑲𝑨 𝑶𝑵𝑳𝒀𝑭𝑨𝑵𝑺 𝑳𝑰𝑽𝑬 𝑲𝑨𝑹 𝑫𝑼𝑵𝑮𝑨",
     "𝑻𝑬𝑹𝑬 𝑫𝑨𝑫𝑨 𝑲𝑶 𝒁𝑰𝑷 𝑭𝑰𝑳𝑬 𝑴𝑬 𝑪𝑶𝑴𝑷𝑹𝑬𝑺𝑺 𝑲𝑨𝑹 𝑫𝑼𝑵𝑮𝑨",
     "𝑻𝑬𝑹𝑬 𝑫𝑨𝑫𝑨 𝑲𝑬 𝑩𝑯𝑶𝑺𝑫𝑬 𝑴𝑬 𝑷𝒀𝑻𝑯𝑶𝑵 𝑹𝑼𝑵 𝑲𝑨𝑹 𝑫𝑼𝑵𝑮𝑨",
+    "TERI MAA KI CHUT RANDI KE PILE",
+    
 
 ]
 
@@ -304,7 +306,7 @@ async def custom_r_command(client, message: Message):
     try:
         await custom_spam_task
         if custom_spam_active:
-            await message.reply_text(f"✅ Custom lines spam completed! Sent {count} messages.")
+            await message.reply_text(f"✅ CHUDAI DONE! Sent {count} messages.")
     except asyncio.CancelledError:
         pass
     finally:
@@ -323,7 +325,7 @@ async def stop_custom_spam(client, message: Message):
         custom_spam_active = False
         if custom_spam_task:
             custom_spam_task.cancel()
-        await message.reply_text("🛑 Custom lines spam stopped!")
+        await message.reply_text("🛑 HO GEYA KAM BOSS!")
     else:
         await message.reply_text("⚠️ No active custom lines spam to stop!")
 
